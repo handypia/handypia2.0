@@ -25,4 +25,4 @@ Specifically, oneM2M standard base our IoT platform provides the thing oriented 
 ### APIs
 Basically, out platform follows the mca interface of oneM2M standard. the mca interfaces is defened message protocole between platform and application. The following API specification include how to create and handle the major resource types such as AE(Application Entity), Container, ContentInstance, Subscription, Node, Group, etc.
 
-* [HANDYPIA IoT Platform API](/api/HANDYPIA-2.0_oneM2M_API_v0.11.html)
+* [HANDYPIA IoT Platform API](/api/HANDYPIA-2.0_oneM2M_API_v0.11.html)){:target="_blank"}
