@@ -20,7 +20,7 @@ You can also refer to following related articles:
 ### Platform Features
 
  Our platform technology makes it possible not only the integrated management in a single system via the web on any device connected to the Internet in the Internet of Things circumstances, but also  easy development of intelligent IoT convergence services through context-aware thing search / recommendation, connection and control. 
-Specifically, oneM2M standard base our IoT platform provides the thing oriented information collection / analysis / control and has the following features. By supporting the interoperability of oneM2M standards and the flexible linkage with other devices, our platform can be utilized in the smart object product development and take advantage of this a new service application development.
+Specifically, oneM2M standard base our IoT platform provides the thing oriented information collection / analysis / control and has the following features. By supporting the interoperability of oneM2M standards and the flexible linkage with other devices, our platform can be utilized in the smart object product development and take advantage of new service application development.
 
   - Compatible with oneM2M standards (oneM2M Release 1).
   - Interworking with HTTP, CoAP and MQTT message protocols.
