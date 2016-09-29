@@ -32,3 +32,34 @@ Specifically, oneM2M standard base our IoT platform provides the thing oriented 
 Basically, out platform follows the mca interface of oneM2M standard. the mca interfaces is defened message protocole between platform and application. The following API specification include how to create and handle the major resource types such as AE(Application Entity), Container, ContentInstance, Subscription, Node, Group, etc.
 
 * [HANDYPIA IoT Platform API](http://dev.handypia.co.kr/onem2m/doc/)
+
+### Installation
+
+You can find the installation and configuration guide from the following document.
+
+* [HANDYPIA-Installation-configuration-guide](HANDYPIA_Installation_Guide.pdf)
+
+Briefly, Installtion, configuration  and running procedure are as followings.
+##### Runtime Environment Setting
+
+```sh
+Install JVM(over 1.7)
+Install Mongodb
+Copy and Extact the HANDYPIA runtime modules
+```
+
+##### Configuration
+
+```sh
+> HANDYPIA CSE configuration
+> Tomcat serve configuration
+```
+
+##### Running
+
+```sh
+> Mongodb deamon start
+> Tomcat start
+```
+
+### Library : To be updated..
