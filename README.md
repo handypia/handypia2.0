@@ -1,6 +1,6 @@
 # HANDYPIA IoT Platform 2.0 [![N|Solid](http://dev.handypia.co.kr/images/common/logo.gif)](http://dev.handypia.co.kr)
 ### Overview
-HANDYPIA is an IoT Platform that is based on the [oneM2M](http://www.onem2m.org/)  standard. You need to understand  the following standard documents to use our platform easily
+HANDYPIA is an IoT Platform based on the [oneM2M](http://www.onem2m.org/)  standard. You need to understand the following standard documents to use our platform easily.
 
 
 [![N|Solid](resources/images/HANDYPIA-architecture.png)]()
@@ -19,17 +19,17 @@ You can also refer to following related articles:
 
 ### Platform Features
 
- Our platform technology makes it possible not only the integrated management in a single system via the web on any device connected to the Internet in the Internet of Things circumstances, but also  easy development of intelligent IoT convergence services through context-aware thing search / recommendation, connection and control. 
-Specifically, oneM2M standard base our IoT platform provides the thing oriented information collection / analysis / control and has the following features. By supporting the interoperability of oneM2M standards and the flexible linkage with other devices, our platform can be utilized in the smart object product development and take advantage of new service application development.
+ Our platform technology makes it possible not only the integrated management in a single system via the web on any devices connected to the Internet in the Internet of Things circumstances, but also easy development of intelligent IoT convergence services through context-aware thing search / recommendation, connection and control. 
+Specifically, our oneM2M standard based IoT platform provides the thing oriented information collection / analysis / control and has the following features. By supporting the interoperability of oneM2M standards and the flexible linkage with other devices, our platform can be utilized in the smart-object product development and take advantage of new service application development.
 
-  - Compatible with oneM2M standards (oneM2M Release 1).
-  - Interworking with HTTP, CoAP and MQTT message protocols.
+  - Compatible with oneM2M standards (oneM2M Release 1)
+  - Interworking with HTTP, CoAP and MQTT message protocols
   - Multiple data repository (HBase, MongoDB, SQLite)
   - Support various proxy modules for interworking with other commercial devices
   - possible to mount various types of IoT devices (servers, gateways, etc.) SW
 
 ### APIs
-Basically, out platform follows the mca interface of oneM2M standard. the mca interfaces is defened message protocole between platform and application. The following API specification include how to create and handle the major resource types such as AE(Application Entity), Container, ContentInstance, Subscription, Node, Group, etc.
+Basically, our platform follows the mca interface of oneM2M standard. the mca interface defene message protocole between platform and application. The following API specification includes how to create and handle the major resource types such as AE(Application Entity), Container, ContentInstance, Subscription, Node, Group, etc.
 
 * [HANDYPIA IoT Platform API](http://dev.handypia.co.kr/onem2m/doc/)
 
