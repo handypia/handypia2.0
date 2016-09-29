@@ -1,0 +1,666 @@
+<!DOCTYPE HTML><html><head><title>HANDYPIA-2.0-oneM2M-CSE API documentation</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="generator" content="https://github.com/raml2html/raml2html 3.0.1"><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css"><script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script><script type="text/javascript" src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script><script type="text/javascript">
+      $(document).ready(function() {
+        $('.page-header pre code, .top-resource-description pre code, .modal-body pre code').each(function(i, block) {
+          hljs.highlightBlock(block);
+        });
+
+        $('[data-toggle]').click(function() {
+          var selector = $(this).data('target') + ' pre code';
+          $(selector).each(function(i, block) {
+            hljs.highlightBlock(block);
+          });
+        });
+
+        // open modal on hashes like #_action_get
+        $(window).bind('hashchange', function(e) {
+          var anchor_id = document.location.hash.substr(1); //strip #
+          var element = $('#' + anchor_id);
+
+          // do we have such element + is it a modal?  --> show it
+          if (element.length && element.hasClass('modal')) {
+            element.modal('show');
+          }
+        });
+
+        // execute hashchange on first page load
+        $(window).trigger('hashchange');
+
+        // remove url fragment on modal hide
+        $('.modal').on('hidden.bs.modal', function() {
+          try {
+            if (history && history.replaceState) {
+                history.replaceState({}, '', '#');
+            }
+          } catch(e) {}
+        });
+      });
+    </script><style>
+      .hljs {
+        background: transparent;
+      }
+      .parent {
+        color: #999;
+      }
+      .list-group-item > .badge {
+        float: none;
+        margin-right: 6px;
+      }
+      .panel-title > .methods {
+        float: right;
+      }
+      .badge {
+        border-radius: 0;
+        text-transform: uppercase;
+        width: 70px;
+        font-weight: normal;
+        color: #f3f3f6;
+        line-height: normal;
+      }
+      .badge_get {
+        background-color: #63a8e2;
+      }
+      .badge_post {
+        background-color: #6cbd7d;
+      }
+      .badge_put {
+        background-color: #22bac4;
+      }
+      .badge_delete {
+        background-color: #d26460;
+      }
+      .badge_patch {
+        background-color: #ccc444;
+      }
+      .list-group, .panel-group {
+        margin-bottom: 0;
+      }
+      .panel-group .panel+.panel-white {
+        margin-top: 0;
+      }
+      .panel-group .panel-white {
+        border-bottom: 1px solid #F5F5F5;
+        border-radius: 0;
+      }
+      .panel-white:last-child {
+        border-bottom-color: white;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+      .panel-white .panel-heading {
+        background: white;
+      }
+      .tab-pane ul {
+        padding-left: 2em;
+      }
+      .tab-pane h1 {
+        font-size: 1.3em;
+      }
+      .tab-pane h2 {
+        font-size: 1.2em;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #ddd;
+      }
+      .tab-pane h3 {
+        font-size: 1.1em;
+      }
+      .tab-content {
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 10px;
+      }
+      #sidebar {
+        margin-top: 30px;
+        padding-right: 5px;
+        overflow: auto;
+        height: 90%;
+      }
+      .top-resource-description {
+        border-bottom: 1px solid #ddd;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description {
+        border-bottom: 1px solid #fcfcfc;
+        background: #fcfcfc;
+        padding: 15px 15px 0 15px;
+        margin: -15px -15px 10px -15px;
+      }
+      .resource-description p:last-child {
+        margin: 0;
+      }
+      .list-group .badge {
+        float: left;
+      }
+      .method_description {
+        margin-left: 85px;
+      }
+      .method_description p:last-child {
+        margin: 0;
+      }
+      .list-group-item {
+        cursor: pointer;
+      }
+      .list-group-item:hover {
+        background-color: #f5f5f5;
+      }
+
+      pre code {
+        overflow: auto;
+        word-wrap: normal;
+        white-space: pre;
+      }
+    </style></head><body data-spy="scroll" data-target="#sidebar"><div class="container"><div class="row"><div class="col-md-9" role="main"><div class="page-header"><h1>HANDYPIA-2.0-oneM2M-CSE API documentation <small>version v0.1-20160927</small></h1><p>http://onem2m.iotmeca.com:8080/~handypia-in/</p></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base" class="panel-title">oneM2M API for managing CSEBase</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준에서 root에 해당하는 자원을 CSE 또는 CSEBase라고 하며,본 설명에서는 CSEBase id를 &#39;base&#39;로 가정한다. CSEBase인 &#39;base&#39;자원은 플랫폼 구동시 초기에 생성되며, 하위에 다양한 자원이 포함 될 수 있으며, 여기에서는 CSEBase 자원에 대한 프리미티브 별 이용 방법을 안내한다. base&#39;자원 아래 생성될 수 있는 자원 유형으로는 &#39;AE&#39;, &#39;Container&#39;, &#39;Subscription&#39;,&#39;Group&#39;, &#39;Node&#39;, &#39;AccessControlPolicy&#39;, &#39;RemoteCSE&#39; 등으로 다양하다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base"><span class="parent"></span>/base</a> <span class="methods"><a href="#base_post"><span class="badge badge_post">post</span></a> <a href="#base_get"><span class="badge badge_get">get</span></a> <a href="#base_put"><span class="badge badge_put">put</span></a> <a href="#base_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>CSEBase자원의 하위 자원에 대한 생성 요청.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>CSEBase 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>CSEBase 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>CSEBase 정보를 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base</h4></div><div class="modal-body"><div class="alert alert-info"><p>CSEBase자원의 하위 자원에 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_post_request" data-toggle="tab">Request</a></li><li><a href="#base_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>Content-Type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=2</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:ae" : {
+      "lbl" : "HANDYPIA WP",
+      "apn" : "HANDYPIA_WP_Test",
+      "api" : "Non_registered_App_ID",
+      "poa" : "http://localhost:18080/wpstub",
+      "rr" : false
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created, 요청한 자원이 성공적으로 생성 되었음.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:ae": {
+    "rn": "SaeX",
+    "ty": 2,
+    "ri": "/handypia-in/SaeX",
+    "pi": "/handypia-in/base",
+    "ct": "20151005T170544",
+    "lt": "20151005T170544",
+    "lbl": "HANDYPIA WP",
+    "acpi": "",
+    "et": "99991231T235959",
+    "at": "",
+    "apn": "HANDYPIA_WP_Test",
+    "api": "Non_registered_App_ID",
+    "aei": "/SaeX",
+    "poa": "http://localhost:18080/wpstub",
+    "rr": false
+  }
+}
+</code></pre><h2>HTTP status code <a href="http://httpstatus.es/405" target="_blank">405</a></h2><p>Bad Request, 해당 메소드를 사용할 수 없음. 요청 대상자원이 CSEBase상에 생성될 수 없음.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base</h4></div><div class="modal-body"><div class="alert alert-info"><p>CSEBase 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_get_request" data-toggle="tab">Request</a></li><li><a href="#base_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉨. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, /base?rcn=5 로 요청하였을 때의 결과로 대상 자원의 속성과 함께 하위 자원의 레퍼런스(URI) 정보가 표출됨.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:cb": {
+        "rn": "base",
+        "ty": 5,
+        "ri": "/handypia-in",
+        "ct": "20151006T075835",
+        "lt": "20151009T112056",
+        "lbl": "HANDYPIA WP",
+        "acpi": "/handypia-in/aSE9KnAckPd7TZaCiBarD0",
+        "cst": 1,
+        "csi": "/handypia-in",
+        "srt": "16 18 1 10002 12 20 2 9 11 22 13 6 10 7 23 21 4 15 3 17 5 14 19 8",
+        "poa": "http://192.168.72.100:8080",
+        "ch": [
+            {
+                "nm": "DEFAULT",
+                "typ": 1,
+                "val": "/handypia-in/aSE9KnAckPd7TZaCiBarD0"
+            },
+            {
+                "nm": "S_SMS_mdalin",
+                "typ": 2,
+                "val": "/handypia-in/S_SMS_mdalin"
+            },
+            {
+                "nm": "S_TTS_free",
+                "typ": 2,
+                "val": "/handypia-in/S_TTS_free"
+            }
+        ]
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base</h4></div><div class="modal-body"><div class="alert alert-info"><p>CSEBase 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_put_request" data-toggle="tab">Request</a></li><li><a href="#base_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:cb": {
+      "lbl": "HANDYPIA WP"
+  }
+}
+</code></pre></div><div class="tab-pane" id="base_put_response"><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Bad request, CSEBase 정보는 oneM2M API를 통해서 업데이트 될 수 없음.</p></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base</h4></div><div class="modal-body"><div class="alert alert-info"><p>CSEBase 정보를 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX1</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/400" target="_blank">400</a></h2><p>Bad Request, CSEBase 정보는 oneM2M API를 통해서 삭제 될 수 없음.</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_fu_1" class="panel-title">oneM2M API to discover resources</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 자원에 대한 discovery 이용 방법을 안내한다. discovery는 모든 oneM2M 자원에 대해 수행할 수 있으며, 대상 URI 를 포함한 그 하위의 자원에 대해 검색해 준다. base은 CSEBase 자원의 ID 이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_fu_1"><span class="parent"></span>/base?fu=1</a> <span class="methods"><a href="#base_fu_1_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_base_fu_1" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_fu_1_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>CSEBase 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_fu_1_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base?fu=1</h4></div><div class="modal-body"><div class="alert alert-info"><p>CSEBase 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_fu_1_get_request" data-toggle="tab">Request</a></li><li><a href="#base_fu_1_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_fu_1_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>fu</strong>: <em>(string)</em><p>filterUsage 의 사용 여부로, fu 가 1로 세팅되어 전달되면, 조건에 해당하는 자원들의 URI정보를 discovery 하여 제공함. fu 에 이어 다양한 discovery 관련 query parameter가 추가될 수 있음. 추가되는 query parameter들은 구분자로 &#39;&amp;&#39;를 주며, 서로 다른 파라미터 간에는 AND 연산을, 동일한 파라미터 간에는 OR 연산을 수행. fu 파라미터는, 모든 자원에 대해 줄 수 있으며, 대상 URI 및 하위 자원에 대한 정보를 제공함.</p><p><strong>Example</strong>:</p><pre>1</pre></li><li><strong>rty</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, resource type 으로, 특정 자원의 타입으로 한정하여 검색. 자원 별 rty 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>2</pre></li><li><strong>lbl</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, 자원의 속성 중 labels에 해당 하는 정보가 일치하는 자원에 대해 검색 하는 것으로, 각 자원은<labels>HANDYPIA WP oneM2M</labels>과 같은 형태로 자신의 정보를 기록하고, &#39;lbl=HANDYPIA&amp;lbl=WP&#39; 등과 같은 형태로 파라미터에 줄 수 있음. HANDYPIA 2.0 플랫폼에서는, lbl 속성을 하나 이상 사용하면, 시스템 설정에 따라 OR 또는 AND 연산을 수행함.</p><p><strong>Example</strong>:</p><pre>HANDYPIA</pre></li><li><strong>crb</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Created Before 로, 특정 시간 이전에 생성된 자원에 대해 검색.</p><p><strong>Example</strong>:</p><pre>20151009</pre></li><li><strong>cra</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Created After 로, 특정 시간 이후에 생성된 자원에 대해 검색.</p><p><strong>Example</strong>:</p><pre>20150930</pre></li><li><strong>ms</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Modified Since 로, 특정 시간 이후로 변경이 발생한 자원에 검색.</p><p><strong>Example</strong>:</p><pre>20150901</pre></li><li><strong>us</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Unmodified Since 로, 특정 시간 이후로 변경이 발생하지 않은 자원에 대해 검색.</p><p><strong>Example</strong>:</p><pre>20151012</pre></li><li><strong>exa</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Expire After 로, 특정 시간 이후로 expire 되는 자원에 대해 검색, expirationTime 이라는 속성에 포함된 값으로, 해당 시간이 도래하면, 대상 자원은 플랫폼에서 삭제 됨.</p><p><strong>Example</strong>:</p><pre>20151231</pre></li><li><strong>exb</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, Expire Before 로, 특정 시간 이전에 expire 되는 자원에 대해 검색.</p><p><strong>Example</strong>:</p><pre>20151012</pre></li><li><strong>lim</strong>: <em>(string)</em><p>fu=1 일 때 이용 가능하며, 언급한 Query Parameter 를 통해 검색되는 결과에 대해 전달되는 결과를 제한 함. 즉, lim=5로 주게 되면, 검색된 URI가 6개여도 5개 까지만 결과로 알려줌.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_fu_1_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>Query Parameter를 이용하여, "/base?fu=1&amp;lbl=WP&amp;rty=2" 로 질의 하였을 때의 결과&gt; rty 가 2인 자원은 AE 임.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:uril": "/handypia-in/base/S_SMS_mdalin /handypia-in/base/S_TTS_free"
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX" class="panel-title">oneM2M API for managing AE</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 AE 자원에 대한 프리미티브 별 이용 방법을 안내한다. SaeX 는 AE 자원의 ID 이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX"><span class="parent"></span>/base/SaeX</a> <span class="methods"><a href="#base_SaeX_post"><span class="badge badge_post">post</span></a> <a href="#base_SaeX_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_put"><span class="badge badge_put">put</span></a> <a href="#base_SaeX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>AE 자원의 하위 자원에 대한 생성 요청.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>AE 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>AE 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>AE 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/SaeX</h4></div><div class="modal-body"><div class="alert alert-info"><p>AE 자원의 하위 자원에 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_post_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=3</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:cnt" : {
+      "rn" : "cntX",
+      "lbl" : "HANDYPIA WP",
+      "mia" : 31536000
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_SaeX_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:cnt": {
+        "rn": "cntX",
+        "ty": 3,
+        "ri": "/handypia-in/7GdAkV6iTMs5BV5QszC4CK",
+        "pi": "/handypia-in/SaeX",
+        "ct": "20151006T110904",
+        "lt": "20151006T110904",
+        "lbl": "HANDYPIA WP",
+        "acpi": "",
+        "et": "99991231T235959",
+        "st": 0,
+        "cr": "SaeX",
+        "mia": 31536000,
+        "cni": 0,
+        "cbs": 0
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX</h4></div><div class="modal-body"><div class="alert alert-info"><p>AE 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉜다. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_SaeX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, /base/SaeX?rcn=5 로 요청하였을 때의 결과.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:ae": {
+        "rn": "SaeX",
+        "ty": 2,
+        "ri": "/handypia-in/SaeX",
+        "pi": "/handypia-in",
+        "ct": "20151006T100810",
+        "lt": "20151006T100810",
+        "lbl": "HANDYPIA WP",
+        "acpi": "",
+        "et": "99991231T235959",
+        "at": "",
+        "aa": "",
+        "apn": "HANDYPIA_WP_Test",
+        "api": "Non_registered_App_ID",
+        "aei": "/SaeX",
+        "poa": "http://localhost:18080/wpstub",
+        "rr": false,
+        "ch": []
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base/SaeX</h4></div><div class="modal-body"><div class="alert alert-info"><p>AE 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_put_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:ae" : {
+       "apn" : "HANDYPIA_WP_Test",
+       "poa" : "http://localhost:8081/wpstub",
+       "rr" : false
+    }
+ }
+</code></pre></div><div class="tab-pane" id="base_SaeX_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:ae": {
+        "rn": "SaeX",
+        "ty": 2,
+        "ri": "/handypia-in/SaeX",
+        "pi": "/handypia-in",
+        "ct": "20151006T100810",
+        "lt": "20151006T104130",
+        "lbl": "",
+        "acpi": "",
+        "et": "99991231T235959",
+        "at": "",
+        "aa": "",
+        "apn": "HANDYPIA_WP_Test",
+        "api": "Non_registered_App_ID",
+        "aei": "/SaeX",
+        "poa": "http://localhost:8081/wpstub",
+        "rr": false,
+        "ch": []
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX</h4></div><div class="modal-body"><div class="alert alert-info"><p>AE 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX3</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX" class="panel-title">oneM2M API for managing Container</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 Container 자원에 대한 프리미티브 별 이용 방법을 안내한다. Container 자원은 CSEBase 상에도 생성될 수 있다. cntX 는 Container 자원의 ID 이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX"><span class="parent"></span>/base/SaeX/cntX</a> <span class="methods"><a href="#base_SaeX_cntX_post"><span class="badge badge_post">post</span></a> <a href="#base_SaeX_cntX_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_cntX_put"><span class="badge badge_put">put</span></a> <a href="#base_SaeX_cntX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX_cntX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Container 자원의 하위 자원에 대한 생성 요청.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Container 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Container 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Container 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/SaeX/cntX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Container 자원의 하위 자원에 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_post_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>X-M2M-NM</strong>: <em>(string)</em><p>생성할 resource 의 ID를 지정할 경우, 여기에 값을 넣어서 전달. 값이 포함되지 않으면, 플랫폼은 랜덤 ID를 생성함.</p><p><strong>Example</strong>:</p><pre>cinX</pre></li><li><strong>content-type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=4</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:ci" : {
+      "lbl" : "HANDYPIA WP",
+      "cnf" : "text/plain:0",
+      "con" : "Hello, World"
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_SaeX_cntX_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:ci": {
+        "rn": "cinX",
+        "ty": 4,
+        "ri": "/handypia-in/2RdAfAjfkUm84HkKvxLGl4",
+        "pi": "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+        "ct": "20151006T113008",
+        "lt": "20151006T113008",
+        "lbl": "HANDYPIA WP",
+        "et": "99991231T235959",
+        "aa": "",
+        "st": 0,
+        "cr": "SaeX",
+        "cnf": "text/plain:0",
+        "cs": 12,
+        "con": "Hello, World"
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX/cntX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Container 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉜다. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:cnt": {
+        "rn": "cntX",
+        "ty": 3,
+        "ri": "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+        "pi": "/handypia-in/SaeX",
+        "ct": "20151006T112113",
+        "lt": "20151006T112240",
+        "lbl": "",
+        "acpi": "",
+        "et": "99991231T235959",
+        "st": 0,
+        "cr": "/SaeX",
+        "mni": 100,
+        "cni": 0,
+        "cbs": 0
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base/SaeX/cntX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Container 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_put_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:cnt" : {
+      "mni" : 150
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_SaeX_cntX_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:cnt": {
+        "rn": "cntX",
+        "ty": 3,
+        "ri": "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+        "pi": "/handypia-in/SaeX",
+        "ct": "20151006T112113",
+        "lt": "20151006T112240",
+        "lbl": "",
+        "acpi": "",
+        "et": "99991231T235959",
+        "st": 0,
+        "cr": "/SaeX",
+        "mni": 150,
+        "cni": 0,
+        "cbs": 0
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX/cntX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Container 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX_cinX" class="panel-title">oneM2M API for managing ContentInstance</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 ContentInstance 자원에 대한 프리미티브 별 이용 방법을 안내한다. ContentInstance는 &#39;온도값&#39; 등 실제 데이터가 저장되는 자원이며, cinX 는 ContentInstance 자원의 ID 이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX_cinX"><span class="parent"></span>/base/SaeX/cntX/cinX</a> <span class="methods"><a href="#base_SaeX_cntX_cinX_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_cntX_cinX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX_cntX_cinX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX_cinX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>ContentInstance 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_cinX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>ContentInstance 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_cinX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX/cntX/cinX</h4></div><div class="modal-body"><div class="alert alert-info"><p>ContentInstance 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_cinX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_cinX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_cinX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>atr</strong>: <em>(string)</em><p>attribute 를 나타내며, attribute는 &#39;resourceType&#39; 등 자원의 정보를 구성하는 단위 임. &#39;atr=xxx&#39; 형태로 구성. 현재는, xxx 에 이용 가능한 값은 &#39;con&#39; 이 있으며, attribute 중 content 를 나타냄. &#39;atr=con&#39; 은, 대상 contentInstance 정보 전체를 보여주지 않고, content 속성(attribute)에 포함된 정보(보통은 실제 값; 메타데이터 등)만 보여줌.</p><p><strong>Example</strong>:</p><pre>con</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_cinX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:ci": {
+        "rn": "cinX",
+        "ty": 4,
+        "ri": "/handypia-in/2RdAfAjfkUm84HkKvxLGl4",
+        "pi": "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+        "ct": "20151006T113008",
+        "lt": "20151006T113008",
+        "lbl": "HANDYPIA WP",
+        "et": "99991231T235959",
+        "aa": "",
+        "st": 0,
+        "cr": "SaeX",
+        "cnf": "text/plain:0",
+        "cs": 12,
+        "con": "Hello, World"
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_cinX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX/cntX/cinX</h4></div><div class="modal-body"><div class="alert alert-info"><p>ContentInstance 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_cinX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_cinX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_cinX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_cinX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX_la" class="panel-title">oneM2M API for managing latest</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 Container 자원에 추가된 contentInstance 자원들 중, 가장 최근에 추가된 자원에 대한 프리미티브 별 이용 방법을 안내한다. latest 는 가상의 자원이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX_la"><span class="parent"></span>/base/SaeX/cntX/la</a> <span class="methods"><a href="#base_SaeX_cntX_la_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_cntX_la_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX_cntX_la" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX_la_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>latest 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_la_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>latest 자원의 삭제</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_la_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX/cntX/la</h4></div><div class="modal-body"><div class="alert alert-info"><p>latest 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_la_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_la_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_la_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>atr</strong>: <em>(string)</em><p>attribute 를 나타내며, attribute는 &#39;resourceType&#39; 등 자원의 정보를 구성하는 단위 임. &#39;atr=xxx&#39; 형태로 구성. 현재는, xxx 에 이용 가능한 값은 &#39;con&#39; 이 있으며, attribute 중 content 를 나타냄. &#39;atr=con&#39; 은, 대상 contentInstance 정보 전체를 보여주지 않고, content 속성(attribute)에 포함된 정보(보통은 실제 값; 메타데이터 등)만 보여줌.</p><p><strong>Example</strong>:</p><pre>con</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_la_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, atr 을 사용하지 않은 예제, contentInstance 자원의 정보</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "m2m:ci": {
+        "rn": "20151009T111023.714",
+        "ty": 4,
+        "ri": "/handypia-in/6ZvN8iHrbBq5Dtt16wJNVZ",
+        "pi": "/handypia-in/4fWL8ewyztI6E8dcE2pwe0",
+        "ct": "20151009T111023",
+        "lt": "20151009T111023",
+        "lbl": "",
+        "et": "99991231T235959",
+        "at": "",
+        "aa": "",
+        "st": 0,
+        "cr": "/S_TTS_free",
+        "cnf": "application/json:1",
+        "cs": 72,
+        "con": "ewogICJ0aW1lIiA6ICIyMDE1MTAwOTExMTAyMyIsCiAgInN0YXR1cyIgOiAicmVhZHkiCn0="
+    }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_la_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX/cntX/la</h4></div><div class="modal-body"><div class="alert alert-info"><p>latest 자원의 삭제</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_la_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_la_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_la_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_la_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX_ol" class="panel-title">oneM2M API for managing oldest</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 Container 자원에 추가된 contentInstance 자원들 중, 가장 오래전에 추가된 자원에 대한 프리미티브 별 이용 방법을 안내한다. oldest 는 가상의 자원이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX_ol"><span class="parent"></span>/base/SaeX/cntX/ol</a> <span class="methods"><a href="#base_SaeX_cntX_ol_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_cntX_ol_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX_cntX_ol" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX_ol_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>oldest 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX_ol_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>oldest 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_ol_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX/cntX/ol</h4></div><div class="modal-body"><div class="alert alert-info"><p>oldest 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_ol_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_ol_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_ol_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>atr</strong>: <em>(string)</em><p>attribute 를 나타내며, attribute는 &#39;resourceType&#39; 등 자원의 정보를 구성하는 단위 임. &#39;atr=xxx&#39; 형태로 구성. 현재는, xxx 에 이용 가능한 값은 &#39;con&#39; 이 있으며, attribute 중 content 를 나타냄. &#39;atr=con&#39; 은, 대상 contentInstance 정보 전체를 보여주지 않고, content 속성(attribute)에 포함된 정보(보통은 실제 값; 메타데이터 등)만 보여줌.</p><p><strong>Example</strong>:</p><pre>con</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_ol_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, atr 을 사용한 예제</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "time": "20151009111023",
+    "status": "ready"
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX_ol_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX/cntX/ol</h4></div><div class="modal-body"><div class="alert alert-info"><p>oldest 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX_ol_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX_ol_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX_ol_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX_ol_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX1" class="panel-title">oneM2M API for creating subscription</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 subscription 자원의 생성을 container를 예로 설명한다. subscription 자원은 대부분의 자원에 대해 추가할 수 있으며, accessControlPolicy 상에, 대상자원에 대한 retrieve(GET) 권한이 있는 경우에만 생성이 가능하다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX1"><span class="parent"></span>/base/SaeX/cntX1</a> <span class="methods"><a href="#base_SaeX_cntX1_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_base_SaeX_cntX1" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX1_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>subscription 자원의 대한 생성 요청.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX1_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/SaeX/cntX1</h4></div><div class="modal-body"><div class="alert alert-info"><p>subscription 자원의 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX1_post_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX1_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX1_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>X-M2M-NM</strong>: <em>(string)</em><p>생성할 resource 의 ID를 지정할 경우, 여기에 값을 넣어서 전달. 값이 포함되지 않으면, 플랫폼은 랜덤 ID를 생성함.</p><p><strong>Example</strong>:</p><pre>subX</pre></li><li><strong>content-type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=4</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "subscription" : {
+      "lbl" : "HANDYPIA WP",
+      "acpi" : "",
+      "nu" : "http://localhost:18080/wpstub",
+      "nct" : 1
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_SaeX_cntX1_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "subscription" : {
+      "rn" : "subX",
+      "ty" : 23,
+      "ri" : "/handypia-in/7FZUfcG9G7z8uqFDgAMb6b",
+      "pi" : "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+      "ct" : "20151006T125242",
+      "lt" : "20151006T125242",
+      "lbl" : "HANDYPIA WP",
+      "acpi" : "",
+      "et" : "99991231T235959",
+      "nu" : "http://localhost:18080/wpstub",
+      "nct" : 1,
+      "cr" : "/SaeX"
+   }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_SaeX_cntX1_subX" class="panel-title">oneM2M API for managing subscription</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 subscription 자원에 대한 프리미티브 별 이용 방법을 안내한다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_SaeX_cntX1_subX"><span class="parent"></span>/base/SaeX/cntX1/subX</a> <span class="methods"><a href="#base_SaeX_cntX1_subX_get"><span class="badge badge_get">get</span></a> <a href="#base_SaeX_cntX1_subX_put"><span class="badge badge_put">put</span></a> <a href="#base_SaeX_cntX1_subX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_SaeX_cntX1_subX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_SaeX_cntX1_subX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>subscription 자원의 정보를 검색.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX1_subX_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>subscription 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_SaeX_cntX1_subX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>subscription 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX1_subX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/SaeX/cntX1/subX</h4></div><div class="modal-body"><div class="alert alert-info"><p>subscription 자원의 정보를 검색.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX1_subX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX1_subX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX1_subX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉜다. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX1_subX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "subscription" : {
+      "rn" : "subX",
+      "ty" : 23,
+      "ri" : "/handypia-in/7FZUfcG9G7z8uqFDgAMb6b",
+      "pi" : "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+      "ct" : "20151006T125242",
+      "lt" : "20151006T125242",
+      "lbl" : "HANDYPIA WP",
+      "acpi" : "",
+      "et" : "99991231T235959",
+      "nu" : "http://localhost:18080/wpstub",
+      "nct" : 1,
+      "cr" : "/SaeX"
+   }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX1_subX_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base/SaeX/cntX1/subX</h4></div><div class="modal-body"><div class="alert alert-info"><p>subscription 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX1_subX_put_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX1_subX_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX1_subX_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "subscription" : {
+      "lbl" : "HANDYPIA WP UPDATE",
+      "acpi" : "",
+      "nu" : "http://localhost:18085/wpstub",
+      "nct" : 0
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_SaeX_cntX1_subX_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "subscription" : {
+      "rn" : "subX",
+      "ty" : 23,
+      "ri" : "/handypia-in/7FZUfcG9G7z8uqFDgAMb6b",
+      "pi" : "/handypia-in/4luyD3P3vgJ63VbQTXbb8I",
+      "ct" : "20151006T125242",
+      "lt" : "20151006T125242",
+      "lbl" : "HANDYPIA WP",
+      "acpi" : "",
+      "et" : "99991231T235959",
+      "nu" : "http://localhost:18085/wpstub",
+      "nct" : 0,
+      "cr" : "/SaeX"
+   }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_SaeX_cntX1_subX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/SaeX/cntX1/subX</h4></div><div class="modal-body"><div class="alert alert-info"><p>subscription 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_SaeX_cntX1_subX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_SaeX_cntX1_subX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_SaeX_cntX1_subX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_SaeX_cntX1_subX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_nodX" class="panel-title">oneM2M API for managing Node</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 Node 자원에 대한 프리미티브 별 이용 방법을 안내한다. nodX 는 Node 자원의 ID 이다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_nodX"><span class="parent"></span>/base/nodX</a> <span class="methods"><a href="#base_nodX_post"><span class="badge badge_post">post</span></a> <a href="#base_nodX_get"><span class="badge badge_get">get</span></a> <a href="#base_nodX_put"><span class="badge badge_put">put</span></a> <a href="#base_nodX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_nodX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_nodX_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Node 자원의 하위 자원에 대한 생성 요청.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_nodX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Node 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_nodX_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Node 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_nodX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Node 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_nodX_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/nodX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Node 자원의 하위 자원에 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_nodX_post_request" data-toggle="tab">Request</a></li><li><a href="#base_nodX_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_nodX_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=14</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:nod" : {
+      "rn" : "nodX",
+      "lbl" : "HANDYPIA WP Node",
+      "ni" : "nodeId"
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_nodX_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:nod": {
+    "rn": "nodX",
+    "ty": 14,
+    "ri": "/handypia-in/8prpKYGquN45ZPZZxWczUC",
+    "pi": "/handypia-in",
+    "ct": "20160928T232324",
+    "lt": "20160928T232324",
+    "lbl": "HANDYPIA WP Node",
+    "et": "99991231T235959",
+    "ni": "nodeId"
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_nodX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/nodX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Node 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_nodX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_nodX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_nodX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉜다. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_nodX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, /base/nodX?rcn=5 로 요청하였을 때의 결과.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:nod": {
+    "rn": "nodX",
+    "ty": 14,
+    "ri": "/handypia-in/8prpKYGquN45ZPZZxWczUC",
+    "pi": "/handypia-in",
+    "ct": "20160928T232324",
+    "lt": "20160928T232324",
+    "lbl": "HANDYPIA WP Node",
+    "et": "99991231T235959",
+    "ni": "nodeId",
+    "ch": []
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_nodX_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base/nodX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Node 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_nodX_put_request" data-toggle="tab">Request</a></li><li><a href="#base_nodX_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_nodX_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "m2m:nod": {
+   "lbl": "HANDYPIA WP Node Upate",
+   "ni": "nodeIdx"
+ }
+}
+</code></pre></div><div class="tab-pane" id="base_nodX_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:nod": {
+    "lt": "20160928T232935",
+    "lbl": "HANDYPIA WP Node Upate",
+    "ni": "nodeIdx"
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_nodX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/nodX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Node 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_nodX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_nodX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_nodX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX3</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_nodX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_grpX" class="panel-title">oneM2M API for managing Group</h3></div><div class="panel-body"><div class="top-resource-description"><p>oneM2M 표준의 Group 자원에 대한 프리미티브 별 이용 방법을 안내한다. grpX 는 Group 자원의 ID 이다. Group 자원은 oneM2M의 동일 자원 또는 혼합된 자원(AE, Container, Subscription, Node등)의 집합으로 다수 자원에 대한 배치 CRUD연산을 가능하게 한다. Group생성시 다수 멤버 자원의 URI를 포함하며, 멤버에 대한 연산을 위해<fopt>라는 가상자원이 생성된다.</fopt></p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_grpX"><span class="parent"></span>/base/grpX</a> <span class="methods"><a href="#base_grpX_post"><span class="badge badge_post">post</span></a> <a href="#base_grpX_get"><span class="badge badge_get">get</span></a> <a href="#base_grpX_put"><span class="badge badge_put">put</span></a> <a href="#base_grpX_delete"><span class="badge badge_delete">delete</span></a></span></h4></div><div id="panel_base_grpX" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_grpX_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>Group 자원의 하위 자원에 대한 생성 요청.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_grpX_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>Group 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_grpX_put'" class="list-group-item"><span class="badge badge_put">put</span><div class="method_description"><p>Group 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><div class="clearfix"></div></div><div onclick="window.location.href = '#base_grpX_delete'" class="list-group-item"><span class="badge badge_delete">delete</span><div class="method_description"><p>Group 자원의 삭제.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_grpX_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/grpX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Group 자원의 하위 자원에 대한 생성 요청.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_grpX_post_request" data-toggle="tab">Request</a></li><li><a href="#base_grpX_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_grpX_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>required (string)</em><p>두 가지 정보를 함께 포함하고 있으며, &#39;;&#39; 로 구분하고, 1) 자원의 content-format 으로 XML 또는 JSON 이 가능. 2) 자원의 타입으로 ty=x 형태로 구성되며, &#39;x&#39; 에 해당하는 enum 값은 oneM2M의 TS-0004 문서의 6.3.3.2.11 m2m:memberType 상에 정의 되어 있음.</p><p><strong>Example</strong>:</p><pre>application/json;ty=9</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+   "m2m:grp" : {
+      "rn" : "grpX",
+      "lbl" : "HANDYPIA WP",
+      "mt" : 3,
+      "mnm" : 10,
+      "mid" : "/handypia-in/base/SaeX/cntX /handypia-in/base/SaeX/cntX "
+   }
+}
+</code></pre></div><div class="tab-pane" id="base_grpX_post_response"><h2>HTTP status code <a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:grp": {
+    "rn": "grpX",
+    "ty": 9,
+    "ri": "/handypia-in/3D1Lg6BYOg7uivqqlxoll",
+    "pi": "/handypia-in",
+    "ct": "20160928T235628",
+    "lt": "20160928T235628",
+    "lbl": "COMUS WP",
+    "et": "99991231T235959",
+    "mt": 3,
+    "cnm": 2,
+    "mnm": 10,
+    "mid": "/handypia-in/base/SaeX/cntX /handypia-in/base/SaeX1/cntX",
+    "mtv": true,
+    "csy": 1,
+    "fopt": "/handypia-in/base/grpX/fopt"
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_grpX_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/grpX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Group 자원의 정보를 검색. Queryparameter 는 맨 앞에 &#39;?&#39;를 둠.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_grpX_get_request" data-toggle="tab">Request</a></li><li><a href="#base_grpX_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_grpX_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>수신하고자 하는 content-format.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>rcn</strong>: <em>(string)</em><p>result content type 으로, rcn=x 형태로 구성, &#39;x&#39; 에 해당하는 타입에는 총 7가지가 있으며, 0) Nothing, 1) Attributes, 2) Hierarchical_Address, 3) Hierarchical_Address_AND_Attributes, 4) Attributes_AND_Child_Resources, 5) Attributes_AND_Child_Resource_References, 6) Child_Resource_References, 7) Original_Resource 으로 나뉜다. 일부 속성은 지원하지 않음.</p><p><strong>Example</strong>:</p><pre>5</pre></li></ul></div><div class="tab-pane" id="base_grpX_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK, /base/grpX 로 요청하였을 때의 결과.</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:grp": {
+    "rn": "grpX",
+    "ty": 9,
+    "ri": "/handypia-in/3D1Lg6BYOg7uivqqlxoll",
+    "pi": "/handypia-in",
+    "ct": "20160928T235628",
+    "lt": "20160928T235628",
+    "lbl": "COMUS WP",
+    "et": "99991231T235959",
+    "mt": 3,
+    "cnm": 2,
+    "mnm": 10,
+    "mid": "/handypia-in/base/SaeX/cntX /handypia-in/base/SaeX1/cntX",
+    "mtv": true,
+    "csy": 1,
+    "fopt": "/handypia-in/base/grpX/fopt"
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_grpX_put"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_put">put</span> <span class="parent"></span>/base/grpX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Group 자원의 속성에 대한 업데이트(추가, 변경, 삭제).</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_grpX_put_request" data-toggle="tab">Request</a></li><li><a href="#base_grpX_put_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_grpX_put_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li><li><strong>content-type</strong>: <em>(string)</em><p>자원의 content-format 으로 XML 또는 JSON 이 가능.</p><p><strong>Example</strong>:</p><pre>application/json</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+ "m2m:grp": {
+   "lbl": "HANDYPIA WP Node Upate"
+ }
+}
+</code></pre></div><div class="tab-pane" id="base_grpX_put_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "m2m:grp": {
+    "rn": "grpX",
+    "ty": 9,
+    "ri": "/handypia-in/3D1Lg6BYOg7uivqqlxoll",
+    "pi": "/handypia-in",
+    "ct": "20160928T235628",
+    "lt": "20160928T235628",
+    "lbl": "COMUS WP",
+    "et": "99991231T235959",
+    "mt": 3,
+    "cnm": 2,
+    "mnm": 10,
+    "mid": "/handypia-in/base/SaeX/cntX /handypia-in/base/SaeX1/cntX",
+    "mtv": true,
+    "csy": 1,
+    "fopt": "/handypia-in/base/grpX/fopt"
+  }
+}
+</code></pre></div></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_grpX_delete"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_delete">delete</span> <span class="parent"></span>/base/grpX</h4></div><div class="modal-body"><div class="alert alert-info"><p>Group 자원의 삭제.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_grpX_delete_request" data-toggle="tab">Request</a></li><li><a href="#base_grpX_delete_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_grpX_delete_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>/SaeX3</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul></div><div class="tab-pane" id="base_grpX_delete_response"><h2>HTTP status code <a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_S_TTS_free_DESCRIPTOR_latest" class="panel-title">사물제어(1/2) oneM2M API to get a metadata of an AE</h3></div><div class="panel-body"><div class="top-resource-description"><p>등록된 사물의 메타데이터를 이용하여, 해당 사물로 제어명령을 전달하는 절차를 설명. 여기에서, "S_TTS_free"는 AE 이며, "DESCRIPTOR" 는 container 임. WP 에서는, "DESCRIPTOR" 를 통해 각 사물의 정보에 해당하는 메타데이터를 관리한다. 본 예제에서는, &#39;latest&#39;로 (&#39;DESCRIPTOR&#39; container에서 가장 최근에 생성된 &#39;contentInstance&#39; 자원), 1)메타데이터를 검색 하고 2)메타데이터로 notify 보낼 명령을 구성하여 텍스트로 요청을 보내면, TTS를 통해 음성으로 출력해 주는 과정에 대해 다룬다. *참고로, 본 예제는 oneM2M 표준에 의한 방법이 아니다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_S_TTS_free_DESCRIPTOR_latest"><span class="parent"></span>/base/S_TTS_free/DESCRIPTOR/latest</a> <span class="methods"><a href="#base_S_TTS_free_DESCRIPTOR_latest_get"><span class="badge badge_get">get</span></a></span></h4></div><div id="panel_base_S_TTS_free_DESCRIPTOR_latest" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_S_TTS_free_DESCRIPTOR_latest_get'" class="list-group-item"><span class="badge badge_get">get</span><div class="method_description"><p>메타데이터 정보 획득. Query Parameter를 주지 않으면, base64 로 인코딩 된 content 정보를 포함한 전체 자원 정보를 전달 받음. "atr=con" 파라미터를 추가하여, 실제 메타데이터에 해당하는 content 부분만 전달 받도록 할 것.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_S_TTS_free_DESCRIPTOR_latest_get"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_get">get</span> <span class="parent"></span>/base/S_TTS_free/DESCRIPTOR/latest</h4></div><div class="modal-body"><div class="alert alert-info"><p>메타데이터 정보 획득. Query Parameter를 주지 않으면, base64 로 인코딩 된 content 정보를 포함한 전체 자원 정보를 전달 받음. "atr=con" 파라미터를 추가하여, 실제 메타데이터에 해당하는 content 부분만 전달 받도록 할 것.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_S_TTS_free_DESCRIPTOR_latest_get_request" data-toggle="tab">Request</a></li><li><a href="#base_S_TTS_free_DESCRIPTOR_latest_get_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_S_TTS_free_DESCRIPTOR_latest_get_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Query Parameters</h3><ul><li><strong>atr</strong>: <em>(string)</em><p>attribute 를 나타내며, attribute는 &#39;resourceType&#39; 등 자원의 정보를 구성하는 단위 임. &#39;atr=xxx&#39; 형태로 구성. 현재는, xxx 에 이용 가능한 값은 &#39;con&#39; 이 있으며, attribute 중 content 를 나타냄. &#39;atr=con&#39; 은, 대상 contentInstance 정보 전체를 보여주지 않고, content 속성(attribute)에 포함된 정보(보통은 실제 값; 메타데이터 등)만 보여줌.</p><p><strong>Example</strong>:</p><pre>con</pre></li></ul></div><div class="tab-pane" id="base_S_TTS_free_DESCRIPTOR_latest_get_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "id": "S_TTS_free",
+    "types": [
+        "Service"
+    ],
+    "createdTime": "20150924110425",
+    "expiredTime": "20150924110425",
+    "nm": "etri-tts",
+    "manufacturer": "ETRI",
+    "model": "ETRI-TTS",
+    "domain": "public",
+    "category": "tts",
+    "coordinates": {
+        "longitude": "127.0978242",
+        "latitude": "37.3949821",
+        "altitude": "0"
+    },
+    "poi": "ETRI12B/5F/Room506",
+    "address": "Korea/Daejeon/Yuseong-gu/Gajeong-dong/ETRI",
+    "image": "http://192.168.11.100:9090/wpx-imgservice/images/tts.jpg",
+    "owners": [
+        "hosung.lee@etri.re.kr"
+    ],
+    "users": [
+        "hosung.lee@etri.re.kr",
+        "lhk@etri.re.kr"
+    ],
+    "keywords": [
+        "WP",
+        "SoT"
+    ],
+    "cpu": "unknown",
+    "memory": "unknown",
+    "disk": "unknown",
+    "version": "1.0",
+    "resources": [
+        {
+            "id": "speaker",
+            "typ": "Service",
+            "category": "tts",
+            "attributes": [
+                {
+                    "nm": "text",
+                    "description": "The english text to speak",
+                    "typ": "string"
+                }
+            ],
+            "operations": [
+                {
+                    "typ": "setState",
+                    "method": "POST",
+                    "uri": "/handypia-in/base/S_TTS_free",
+                    "in": [
+                        "text"
+                    ],
+                    "out": [
+                        "text"
+                    ]
+                }
+            ]
+        }
+    ]
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div><div class="panel panel-default"><div class="panel-heading"><h3 id="base_S_TTS_free" class="panel-title">사물제어(2/2) oneM2M API to control a function of an AE</h3></div><div class="panel-body"><div class="top-resource-description"><p>메타데이터를 기반으로, 해당 사물에 대한 제어 명령을, notify request 로 생성하여 사물로 전달 한다. * notify는 post 프리미티브이면서 자원의 타입을 명시 하지 않는 것을 말한다.</p></div><div class="panel-group"><div class="panel panel-white"><div class="panel-heading"><h4 class="panel-title"><a class="collapsed" data-toggle="collapse" href="#panel_base_S_TTS_free"><span class="parent"></span>/base/S_TTS_free</a> <span class="methods"><a href="#base_S_TTS_free_post"><span class="badge badge_post">post</span></a></span></h4></div><div id="panel_base_S_TTS_free" class="panel-collapse collapse"><div class="panel-body"><div class="list-group"><div onclick="window.location.href = '#base_S_TTS_free_post'" class="list-group-item"><span class="badge badge_post">post</span><div class="method_description"><p>메타데이터에 포함된 resource 가 사물 정보를 의미하며, operation 에 나열된 정보로 명령을 생성하여, 사물로 전달.</p></div><div class="clearfix"></div></div></div></div></div><div class="modal fade" tabindex="0" id="base_S_TTS_free_post"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><h4 class="modal-title" id="myModalLabel"><span class="badge badge_post">post</span> <span class="parent"></span>/base/S_TTS_free</h4></div><div class="modal-body"><div class="alert alert-info"><p>메타데이터에 포함된 resource 가 사물 정보를 의미하며, operation 에 나열된 정보로 명령을 생성하여, 사물로 전달.</p></div><ul class="nav nav-tabs"><li class="active"><a href="#base_S_TTS_free_post_request" data-toggle="tab">Request</a></li><li><a href="#base_S_TTS_free_post_response" data-toggle="tab">Response</a></li></ul><div class="tab-content"><div class="tab-pane active" id="base_S_TTS_free_post_request"><h3>Headers</h3><ul><li><strong>X-M2M-Origin</strong>: <em>required (string)</em><p>Originator, From 으로 CSE-ID 또는 AE-ID 가 올 수 있음. 또한, 해당 ID는 accessControlPolicy 상에 등록 되어 있어야 하며, 현재는 Sxx, Cxx 등의 ID는 accessControlPolicy 상에 등록 되어 있음.</p><p><strong>Example</strong>:</p><pre>SaeX</pre></li><li><strong>X-M2M-RI</strong>: <em>required (string)</em><p>Request Identifier 로 요청을 식별하기 위해 부여.</p><p><strong>Example</strong>:</p><pre>RQI-0001</pre></li></ul><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+  "opType": "setState",
+  "targets" : ["speaker"],
+  "state" : {
+      "text" : "hello" }
+}
+</code></pre></div><div class="tab-pane" id="base_S_TTS_free_post_response"><h2>HTTP status code <a href="http://httpstatus.es/200" target="_blank">200</a></h2><p>OK</p><h3>Body</h3><p><strong>Type: application/json</strong></p><p><strong>Example</strong>:</p><pre><code>{
+    "opType": "setState",
+    "results": {
+        "speaker": {
+            "status": "success",
+            "time": "20151012184908",
+            "state": {
+                "text": "hello"
+            }
+        }
+    }
+}
+</code></pre></div></div></div></div></div></div></div></div></div></div></div><div class="col-md-3"><div id="sidebar" class="hidden-print affix" role="complementary"><ul class="nav nav-pills nav-stacked"><li><a href="#base">oneM2M API for managing CSEBase</a></li><li><a href="#base_fu_1">oneM2M API to discover resources</a></li><li><a href="#base_SaeX">oneM2M API for managing AE</a></li><li><a href="#base_SaeX_cntX">oneM2M API for managing Container</a></li><li><a href="#base_SaeX_cntX_cinX">oneM2M API for managing ContentInstance</a></li><li><a href="#base_SaeX_cntX_la">oneM2M API for managing latest</a></li><li><a href="#base_SaeX_cntX_ol">oneM2M API for managing oldest</a></li><li><a href="#base_SaeX_cntX1">oneM2M API for creating subscription</a></li><li><a href="#base_SaeX_cntX1_subX">oneM2M API for managing subscription</a></li><li><a href="#base_nodX">oneM2M API for managing Node</a></li><li><a href="#base_grpX">oneM2M API for managing Group</a></li><li><a href="#base_S_TTS_free_DESCRIPTOR_latest">사물제어(1/2) oneM2M API to get a metadata of an AE</a></li><li><a href="#base_S_TTS_free">사물제어(2/2) oneM2M API to control a function of an AE</a></li></ul></div></div></div></div></body></html>
