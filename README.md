@@ -2,8 +2,11 @@
 ### Overview
 HANDYPIA is an IoT Platform that is based on the [oneM2M](http://www.onem2m.org/)  standard. You need to understand  the following standard documents to use our platform easily
 
+
 [![N|Solid](resources/images/HANDYPIA-architecture.png)]()
-*HANDYPIA IoT Platform Architecture*
+<p align="center">
+  <b>[HANDYPIA IoT Platform Architecture]</b><br>
+</p>
 
   - [oneM2M release1 specification, TS-0001-Functional Architecture(1.6.1)](http://www.onem2m.org/images/files/deliverables/TS-0001-Functional_Architecture-V1_6_1.pdf)
   - [oneM2M release1 specification, TS-0004-Service Layer Core Protocol Specification(1.6.0)](http://www.onem2m.org/images/files/deliverables/UpdateRelease1/TS-0004-Service_Layer_Core_Protocol-V1_6_0.zip)
