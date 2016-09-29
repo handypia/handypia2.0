@@ -37,7 +37,7 @@ Basically, out platform follows the mca interface of oneM2M standard. the mca in
 
 You can find the installation and configuration guide from the following document.
 
-* [HANDYPIA-Installation-configuration-guide](HANDYPIA_Installation_Guide.pdf)
+* [HANDYPIA-Installation-configuration-guide](doc/HANDYPIA_Installation_Guide.pdf)
 
 Briefly, Installtion, configuration  and running procedure are as followings.
 ##### Runtime Environment Setting
