@@ -1,6 +1,4 @@
-# HANDYPIA IoT Platform 2.0
-
-[![N|Solid](http://dev.handypia.co.kr/images/common/logo.gif)](http://dev.handypia.co.kr)
+# HANDYPIA IoT Platform 2.0 [![N|Solid](http://dev.handypia.co.kr/images/common/logo.gif)](http://dev.handypia.co.kr)
 
 HANDYPIA is an IoT Platform that is based on the [oneM2M](http://www.onem2m.org/)  standard. You need to understand  the following standard documents to use our platform easily
 
@@ -9,6 +7,6 @@ HANDYPIA is an IoT Platform that is based on the [oneM2M](http://www.onem2m.org/
   - [oneM2M release1 specification, TS-0009-HTTP Protocol Binding(1.5.0)](http://www.onem2m.org/images/files/deliverables/TS-0009-HTTP_Protocol_Binding-V1_5_1.pdf)
 
 You can also refer to following related articles:
-  - [oneM2M standard overview](slide/oneM2M(T.pdf)
-  - [oneM2M standard TS-0001 slides)](slide/oneM2M.pdf)
-  - [oneM2M standard TS-0004 slides](http://www.onem2m.org/images/files/deliverables/TS-0009-HTTP_Protocol_Binding-V1_5_1.pdf)
+  - [oneM2M standard overview](slide/oneM2M(overview).pdf)
+  - [oneM2M standard TS-0001 slides](slide/oneM2M(TS0001).pdf)
+  - [oneM2M standard TS-0004 slides](slide/oneM2M(TS0004).pdf) 
